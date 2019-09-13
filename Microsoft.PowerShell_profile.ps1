@@ -10,7 +10,7 @@ function Prompt
     }
 
     $cwd = $executionContext.SessionState.Path.CurrentLocation
-    $host.UI.RawUI.WindowTitle = $title + " [" + (Get-Item -Path $cwd | Select -ExpandProperty Name) + "]";
+    $host.UI.RawUI.WindowTitle = $title + " [" + (Get-Item -Path $cwd | Select-Object -ExpandProperty Name) + "]";
     return "PS $($cwd)$('>' * ($nestedPromptLevel + 1)) "
 }
 
