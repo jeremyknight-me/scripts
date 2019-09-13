@@ -15,7 +15,6 @@ function Prompt
 }
 
 Clear-Host 
-cd\
 
 ## Chocolatey profile
 #$ChocolateyProfile = "$env:ChocolateyInstall\helpers\chocolateyProfile.psm1"
