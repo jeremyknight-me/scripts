@@ -14,12 +14,5 @@ function Prompt
     return "PS $($cwd)$('>' * ($nestedPromptLevel + 1)) "
 }
 
+#. C:\src\gh\jk\powershell\Ionic-Functions.ps1
 Clear-Host 
-
-## Chocolatey profile
-#$ChocolateyProfile = "$env:ChocolateyInstall\helpers\chocolateyProfile.psm1"
-#if (Test-Path($ChocolateyProfile)) {
-#  Import-Module "$ChocolateyProfile"
-#}
-
-. C:\src\gh\jk\powershell\Ionic-Functions.ps1
