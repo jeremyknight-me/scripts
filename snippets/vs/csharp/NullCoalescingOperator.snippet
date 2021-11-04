@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+      <Keywords />
+      <Title>Null Coalescing Operator</Title>
+      <Author>Jeremy Knight</Author>
+      <Description>Implements the ??, or null coalescing, operator.</Description>
+      <HelpUrl>
+      </HelpUrl>
+      <Shortcut>nullcoalescing</Shortcut>
+    </Header>
+    <Snippet>
+      <References />
+      <Imports />
+      <Declarations>
+        <Literal Editable="true">
+          <ID>value</ID>
+          <ToolTip>value</ToolTip>
+          <Default>value</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>valueIfNull</ID>
+          <ToolTip>value if null</ToolTip>
+          <Default>valueIfNull</Default>
+          <Function>
+          </Function>
+        </Literal>
+      </Declarations>
+      <Code Language="csharp" Kind="" Delimiter="$"><![CDATA[$value$ ?? $valueIfNull$]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>
