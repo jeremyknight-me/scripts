@@ -1,11 +1,11 @@
 IF EXISTS (
     SELECT * FROM dbo.sysobjects 
     WHERE 
-        id = object_id(N'[dbo].[fPadLeft]') 
+        id = object_id(N'[dbo].[PadLeft]') 
     AND xtype IN (N'FN', N'IF', N'TF')
 )
 BEGIN
-    DROP FUNCTION [dbo].[fPadLeft];
+    DROP FUNCTION [dbo].[PadLeft];
 END
 GO
 
@@ -14,7 +14,7 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 
-CREATE FUNCTION fPadLeft 
+CREATE FUNCTION PadLeft 
 (
     @OrigString VARCHAR(MAX) = NULL,
     @PadLength INT = 0,

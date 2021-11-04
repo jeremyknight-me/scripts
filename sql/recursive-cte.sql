@@ -10,6 +10,21 @@ CREATE TABLE [dbo].[Category](
 )
 To get the full path for each category, the SQL would look like:
 */
+
+DECLARE @category TABLE
+(
+	[Id] [int] NOT NULL,
+	[Name] [nvarchar](max) NOT NULL,
+	[ParentCategoryId] [int] NULL
+);
+
+INSERT INTO @category (Id, [Name], ParentCategoryId)
+VALUES
+	(1, 'Parent 1', null),
+	(2, 'Parent 2', null),
+	(3, 'Child 1', 1),
+	(4, 'Child 2', 2);
+
 WITH CTE_CategoriesWithPaths AS
 (
     SELECT
@@ -17,7 +32,7 @@ WITH CTE_CategoriesWithPaths AS
         c.Name,
         c.ParentCategoryId,
         c.Name AS [Path]
-    FROM Category c
+    FROM @category c
     WHERE c.ParentCategoryId IS NULL
     UNION ALL
     SELECT
@@ -26,7 +41,7 @@ WITH CTE_CategoriesWithPaths AS
         c.ParentCategoryId,
         cte.[Path] + '/' + c.Name AS [Path]
     FROM
-        Category c
+        @category c
         INNER JOIN CTE_CategoriesWithPaths cte
             ON c.ParentCategoryId = cte.Id
     WHERE c.ParentCategoryId IS NOT NULL
