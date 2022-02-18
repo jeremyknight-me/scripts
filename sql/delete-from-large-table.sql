@@ -8,6 +8,6 @@ WHILE (@rowsDeleted > 0)
 BEGIN
     DELETE TOP(1000) -- delete X rows a time; here x = 1000
 	FROM [dbo].[YourTable]
-	where Id < 1000000; -- setup where claus as needed
+	where Id < 1000000; -- setup where clause as needed
     SET @rowsDeleted = @@ROWCOUNT;
 END
