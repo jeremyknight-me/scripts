@@ -17,9 +17,9 @@
         <Import>
           <Namespace>Xunit</Namespace>
         </Import>
-		<Import>
-		  <Namespace>System.Collections.Generic</Namespace>
-		</Import>
+        <Import>
+          <Namespace>System.Collections.Generic</Namespace>
+        </Import>
       </Imports>
       <Declarations>
         <Literal Editable="true">
@@ -44,7 +44,7 @@
           </Function>
         </Literal>
       </Declarations>
-      <Code Language="csharp" Delimiter="$"><![CDATA[[Theory]
+      <Code Language="csharp" Delimiter="$" Kind="method decl"><![CDATA[[Theory]
 [MemberData(nameof($testdataname$))]
 public void $testname$()
 {
