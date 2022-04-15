@@ -5,12 +5,12 @@
       <SnippetTypes>
         <SnippetType>Expansion</SnippetType>
       </SnippetTypes>
-      <Title>xUnit Assert Equals Snippet</Title>
+      <Title>xUnit Assert Null Snippet</Title>
       <Author>Jeremy Knight</Author>
-      <Description>Adds an xUnit Equals assertion</Description>
+      <Description>Adds an xUnit Null assertion</Description>
       <HelpUrl>
       </HelpUrl>
-      <Shortcut>xae</Shortcut>
+      <Shortcut>xan</Shortcut>
     </Header>
     <Snippet>
       <Imports>
@@ -20,13 +20,6 @@
       </Imports>
       <Declarations>
         <Literal Editable="true">
-          <ID>expected</ID>
-          <ToolTip>expected</ToolTip>
-          <Default>expected</Default>
-          <Function>
-          </Function>
-        </Literal>
-        <Literal Editable="true">
           <ID>actual</ID>
           <ToolTip>actual</ToolTip>
           <Default>actual</Default>
@@ -34,7 +27,7 @@
           </Function>
         </Literal>
       </Declarations>
-      <Code Language="csharp" Delimiter="$"><![CDATA[Assert.Equal($expected$, $actual$);$end$]]></Code>
+      <Code Language="csharp" Delimiter="$"><![CDATA[Assert.Null($actual$);$end$]]></Code>
     </Snippet>
   </CodeSnippet>
 </CodeSnippets>
