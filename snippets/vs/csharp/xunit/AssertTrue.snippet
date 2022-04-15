@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+      <Title>xUnit Assert True Snippet</Title>
+      <Author>Jeremy Knight</Author>
+      <Description>Adds an xUnit True assertion</Description>
+      <HelpUrl>
+      </HelpUrl>
+      <Shortcut>xat</Shortcut>
+    </Header>
+    <Snippet>
+      <Imports>
+        <Import>
+          <Namespace>Xunit</Namespace>
+        </Import>
+      </Imports>
+      <Declarations>
+        <Literal Editable="true">
+          <ID>actual</ID>
+          <ToolTip>actual</ToolTip>
+          <Default>actual</Default>
+          <Function>
+          </Function>
+        </Literal>
+      </Declarations>
+      <Code Language="csharp" Delimiter="$"><![CDATA[Assert.True($actual$);$end$]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>
