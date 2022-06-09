@@ -1,0 +1,45 @@
+IF EXISTS ( SELECT * FROM dbo.sysobjects
+            WHERE id = OBJECT_ID(N'[dbo].[TimeDimension]')
+                AND OBJECTPROPERTY(id, N'IsUserTable') = 1 )
+   DROP TABLE [dbo].[TimeDimension];
+GO
+
+CREATE TABLE [dbo].[TimeDimension]
+(
+    [Id] INT NOT NULL,
+    [TimeStamp] TIME(0) NOT NULL, 
+    [Hour] CHAR(2) NOT NULL,
+    [MilitaryHour] CHAR(2) NOT NULL,
+    [Minute] CHAR(2) NOT NULL,
+    [Second] CHAR(2) NOT NULL,
+    [AmPm] CHAR(2) NOT NULL,
+    [DisplayTime] CHAR(11) NOT NULL,
+    CONSTRAINT [PK_TimeDimension] PRIMARY KEY CLUSTERED ( [Id] )
+) ON [PRIMARY]
+GO
+
+CREATE UNIQUE NONCLUSTERED INDEX [IX_TimeDimension_TimeStamp] ON [dbo].[TimeDimension] 
+(
+	[TimeStamp] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+GO
+
+/* add additional indexes based on your use cases
+CREATE NONCLUSTERED INDEX [IX_TimeDimension_MilitaryHour] ON [dbo].[TimeDimension] 
+(
+	[MilitaryHour] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+GO
+
+CREATE NONCLUSTERED INDEX [IX_TimeDimension_Minute] ON [dbo].[TimeDimension] 
+(
+	[Minute] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+GO
+
+CREATE NONCLUSTERED INDEX [IX_TimeDimension_Second] ON [dbo].[TimeDimension] 
+(
+	[Second] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+GO
+*/
