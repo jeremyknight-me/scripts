@@ -1,9 +1,13 @@
-/* NOTE: SQL Server 2016 and above can use 'STRING_SPLIT()' */
+/* 
+NOTE: 
+- SQL Server 2016 and above can use built in STRING_SPLIT() 
+- SELECT * FROM STRING_SPLIT(@DelimitedString, ',');
+*/
 IF EXISTS (
-    SELECT * FROM dbo.sysobjects 
-    WHERE 
-        id = object_id(N'[dbo].[SplitString]') 
-    AND xtype IN (N'FN', N'IF', N'TF')
+    SELECT * FROM INFORMATION_SCHEMA.ROUTINES
+    WHERE ROUTINE_NAME = 'SplitString'
+    AND ROUTINE_SCHEMA = 'dbo'
+    AND ROUTINE_TYPE = 'FUNCTION'
 )
 BEGIN
     DROP FUNCTION [dbo].[SplitString];
