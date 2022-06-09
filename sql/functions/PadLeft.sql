@@ -1,19 +1,15 @@
 IF EXISTS (
-    SELECT * FROM dbo.sysobjects 
-    WHERE id = object_id(N'[dbo].[PadRight]') 
-    AND xtype IN (N'FN', N'IF', N'TF')
+    SELECT * FROM INFORMATION_SCHEMA.ROUTINES
+    WHERE   ROUTINE_NAME = 'PadLeft'
+    AND ROUTINE_SCHEMA = 'dbo'
+    AND ROUTINE_TYPE = 'FUNCTION'
 )
 BEGIN
-    DROP FUNCTION [dbo].[PadRight];
+    DROP FUNCTION [dbo].[PadLeft];
 END
 GO
 
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-
-CREATE FUNCTION PadRight 
+CREATE FUNCTION dbo.PadLeft 
 (
     @OrigString VARCHAR(MAX) = NULL,
     @PadLength INT = 0,
@@ -29,7 +25,7 @@ Description:
     Pads the given string (@OrigString) to the 
     given length (@PadLength) using the given 
     character (@PadChar). Characters are added 
-    to the right of given string.
+    to the left of given string.
 
 NOTE: 
     VARCHAR(MAX) makes this function usable 
@@ -37,9 +33,9 @@ NOTE:
     SQL 2005 or above.
 ============================================= */
 
-  -- Declare the variables
-  DECLARE @Result VARCHAR(MAX); -- return variable
-  DECLARE @OrigLength INT;
+    -- Declare the variables
+    DECLARE @Result VARCHAR(MAX); -- return variable
+    DECLARE @OrigLength INT;
 
     -- Add the T-SQL statements to compute the return value here
     SET @OrigLength = LEN(@OrigString);
@@ -50,7 +46,7 @@ NOTE:
     END
     ELSE
     BEGIN
-        SET @Result =  @OrigString + REPLICATE(@PadChar, @PadLength - @OrigLength);
+        SET @Result = REPLICATE(@PadChar, @PadLength - @OrigLength) + @OrigString;
     END
 
     -- Return the result of the function
