@@ -1,18 +1,26 @@
 SET NOCOUNT ON; -- turn off all the 1 row inserted messages
 
+DECLARE @beginDate DATETIME;
+DECLARE @endDate DATETIME;
+DECLARE @lastDayOfMonth BIT;
+
+-- Number of months to add to the date to get the current Fiscal date
+DECLARE @fiscalYearMonthsOffset INT;
+
 -- These two counters are used in our loop.
 DECLARE @dateCounter DATETIME;    --Current date in loop
 DECLARE @fiscalCounter DATETIME;  --Fiscal Year Date in loop
 
 -- Set the date to start populating and end populating
-DECLARE @beginDate DATETIME = '01/01/2015';
-DECLARE @endDate DATETIME = '12/31/2030';
+SET @beginDate = '01/01/2015';
+SET @endDate = '12/31/2030';
 
--- Number of months to add to the date to get the current Fiscal date.
 -- Set this to the number of months to add to the current date to get
 -- the beginning of the Fiscal year. For example, if the Fiscal year
--- begins July 1, put a 6 there. Negative values are also allowed.
-DECLARE @fiscalYearMonthsOffset INT = 0;
+-- begins July 1, put a 6 there.
+-- Negative values are also allowed, thus if your 2010 Fiscal year
+-- begins in July of 2009, put a -6.
+SET @fiscalYearMonthsOffset = 0;
 
 -- Start the counter at the begin date
 SET @dateCounter = @beginDate;
@@ -23,20 +31,20 @@ BEGIN
     SET @fiscalCounter = DATEADD(m, @fiscalYearMonthsOffset, @dateCounter);
 
     -- Set value for IsLastDayOfMonth
-    DECLARE @lastDayOfMonth BIT;
-    IF @dateCounter = EOMONTH(@dateCounter)
+    IF MONTH(@dateCounter) = MONTH(DATEADD(d, 1, @dateCounter))
     BEGIN
-       SET @lastDayOfMonth = 1;
+       SET @lastDayOfMonth = 0;
     END
     ELSE
     BEGIN
-       SET @lastDayOfMonth = 0; 
+       SET @lastDayOfMonth = 1; 
     END
 
     -- add a record into the date dimension table for this date
     INSERT INTO [dbo].[DateDimension]
     (
-        [Id],
+		[Id],
+        [DateStamp],
         [DateName],
         [DateNameUS],
         [DateNameEU],
@@ -61,6 +69,11 @@ BEGIN
     )
     VALUES  
     (
+		CONVERT(int,
+			CAST(YEAR(@dateCounter) AS CHAR(4)) 
+            + RIGHT('00' + RTRIM(CAST(DATEPART(mm, @dateCounter) AS CHAR(2))), 2)
+			+ RIGHT('00' + RTRIM(CAST(DATEPART(dd, @dateCounter) AS CHAR(2))), 2)
+		), 
         @dateCounter, -- DateStamp
         CAST(YEAR(@dateCounter) AS CHAR(4)) + '-'
             + RIGHT('00' + RTRIM(CAST(DATEPART(mm, @dateCounter) AS CHAR(2))), 2) + '-'
