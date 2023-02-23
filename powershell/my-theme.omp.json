@@ -1,27 +1,39 @@
 {
   "$schema": "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json",
+  "version": 2,
+  "final_space": true,
+  "console_title_template": "{{if .Root}}[Admin] {{end}}{{ .HostName }} \u276f {{ .PWD }}",
   "blocks": [
     {
       "type": "prompt",
       "alignment": "left",
       "segments": [
         {
-          "type": "path",
+          "type": "session",
           "style": "diamond",
-          "leading_diamond": "\uE0B6",
-          "trailing_diamond": "\uE0B0",
+          "foreground": "#ffffff",
+          "background": "#c386f1",
+          "leading_diamond": "\ue0b6",
+          "trailing_diamond": "\ue0b0",
+          "template": "\uf7db {{ if .SSHSession }}\uF817 {{ end }}{{ .HostName }}"
+        },
+        {
+          "type": "path",
+          "style": "powerline",
+          "powerline_symbol": "\ue0b0",
           "foreground": "#ffffff",
           "background": "#6079bd",
+          "template": " \ue5ff {{ .Path }} ",
           "properties": {
+            "folder_separator_icon": " \u005c ",
             "home_icon": "~",
-            "folder_separator_icon": " \uE0b1 ",
             "style": "mixed"
           }
         },
         {
           "type": "git",
           "style": "powerline",
-          "powerline_symbol": "\uE0B0",
+          "powerline_symbol": "\ue0b0",
           "foreground": "#193549",
           "background": "#dad606",
           "background_templates": [
@@ -30,36 +42,31 @@
             "{{ if gt .Ahead 0 }}#B388FF{{ end }}",
             "{{ if gt .Behind 0 }}#B388FF{{ end }}"
           ],
-          "leading_diamond": "",
-          "trailing_diamond": "",
+          "template": " {{ .UpstreamIcon }}{{ .HEAD }}{{ .BranchStatus }}{{ if .Working.Changed }} \uf044 {{ .Working.String }}{{ end }}{{ if and (.Working.Changed) (.Staging.Changed) }} |{{ end }}{{ if .Staging.Changed }} \uf046 {{ .Staging.String }}{{ end }}{{ if gt .StashCount 0 }} \uf692 {{ .StashCount }}{{ end }} ",
           "properties": {
-            "fetch_status": true,
-            "fetch_stash_count": true,
-            "fetch_upstream_icon": true,
             "branch_max_length": 25,
-            "template": "{{ .UpstreamIcon }}{{ .HEAD }}{{ .BranchStatus }}{{ if .Working.Changed }} \uF044 {{ .Working.String }}{{ end }}{{ if and (.Working.Changed) (.Staging.Changed) }} |{{ end }}{{ if .Staging.Changed }} \uF046 {{ .Staging.String }}{{ end }}{{ if gt .StashCount 0 }} \uF692 {{ .StashCount }}{{ end }}"
+            "fetch_stash_count": true,
+            "fetch_status": true,
+            "fetch_upstream_icon": true
           }
+        },
+        {
+          "type": "battery",
+          "style": "powerline",
+          "powerline_symbol": "\uE0B0",
+          "foreground": "#efefef",
+          "background": "#1b536f",
+          "template": "{{if eq \"Discharging\" .State.String}} {{ if not .Error }}\uf578 {{ .Percentage }}{{ end }}\uF295 {{ end }}"
         },
         {
           "type": "root",
           "style": "powerline",
-          "powerline_symbol": "\uE0B0",
+          "powerline_symbol": "\ue0b0",
           "foreground": "#ffffff",
           "background": "#ff5f5f",
-          "properties": {
-            "root_icon": ""
-          }
+          "template": " \uf023 "
         }
       ]
-    },
-    {
-      "type": "rprompt",
-      "segments": [
-      ]
     }
-  ],
-  "final_space": true,
-  "console_title": true,
-  "console_title_style": "template",
-  "console_title_template": "{{if .Root}}[Admin] {{end}}{{ .Path }}"
+  ]
 }
