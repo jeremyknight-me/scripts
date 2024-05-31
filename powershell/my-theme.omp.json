@@ -15,7 +15,7 @@
           "background": "#c386f1",
           "leading_diamond": "\ue0b6",
           "trailing_diamond": "\ue0b0",
-          "template": "\uf7db {{ if .SSHSession }}\uF817 {{ end }}{{ .HostName }}"
+          "template": "{{ if .SSHSession }}\ueba9 {{ .HostName }} {{else}}\uf015 {{ end }}"
         },
         {
           "type": "path",
@@ -53,11 +53,24 @@
         {
           "type": "battery",
           "style": "powerline",
-          "powerline_symbol": "\uE0B0",
+          "powerline_symbol": "\ue0B0",
           "foreground": "#efefef",
           "background": "#1b536f",
-          "template": "{{if eq \"Discharging\" .State.String}} {{ if not .Error }}\uf578 {{ .Percentage }}{{ end }}\uF295 {{ end }}"
+          "template": "{{if eq \"Discharging\" .State.String}} {{ if not .Error }}\uf240 {{ .Percentage }}{{ end }}\uF295 {{ end }}"
         },
+		{
+		  "type": "executiontime",
+		  "style": "powerline",
+		  "powerline_symbol": "\ue0b0",
+		  "foreground": "#ffffff",
+		  "background": "#8800dd",
+		  "template": " \uF520 {{ .FormattedMs }} ",
+		  "properties": {
+			"threshold": 500,
+			"style": "austin",
+			"always_enabled": false
+		  }
+		},
         {
           "type": "root",
           "style": "powerline",
