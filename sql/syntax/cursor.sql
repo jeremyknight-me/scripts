@@ -10,5 +10,6 @@ BEGIN
     FETCH NEXT FROM rsCursor INTO @currentField1;
 END
 
-CLOSE rsCursor;
-DEALLOCATE rsCursor;
+-- Not needed when LOCAL is declared.
+--CLOSE rsCursor;
+--DEALLOCATE rsCursor;
