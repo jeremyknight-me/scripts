@@ -12,10 +12,10 @@
           "type": "session",
           "style": "diamond",
           "foreground": "#ffffff",
-          "background": "#c386f1",
+          "background": "#1e3999",
           "leading_diamond": "\ue0b6",
           "trailing_diamond": "\ue0b0",
-          "template": "{{ if .SSHSession }}\ueba9 {{ .HostName }} {{else}}\uf015 {{ end }}"
+          "template": "{{ if .SSHSession }}\ueba9 {{ .HostName }}{{else}}\uf015{{ end }} "
         },
         {
           "type": "path",
@@ -35,7 +35,7 @@
           "style": "powerline",
           "powerline_symbol": "\ue0b0",
           "foreground": "#193549",
-          "background": "#dad606",
+          "background": "#fff06a",
           "background_templates": [
             "{{ if or (.Working.Changed) (.Staging.Changed) }}#FF9248{{ end }}",
             "{{ if and (gt .Ahead 0) (gt .Behind 0) }}#ff4500{{ end }}",
@@ -55,15 +55,18 @@
           "style": "powerline",
           "powerline_symbol": "\ue0B0",
           "foreground": "#efefef",
-          "background": "#1b536f",
-          "template": "{{if eq \"Discharging\" .State.String}} {{ if not .Error }}\uf240 {{ .Percentage }}{{ end }}\uF295 {{ end }}"
+          "background": "#005e1b",
+		  "background_templates": [
+		    "{{ if lt .Percentage 20 }}#ff0000{{ end }}"
+		  ],
+          "template": "{{if eq \"Discharging\" .State.String}} {{ if not .Error }}\uf0e7 {{ .Percentage }}{{ end }}\uF295 {{ end }}"
         },
 		{
 		  "type": "executiontime",
 		  "style": "powerline",
 		  "powerline_symbol": "\ue0b0",
 		  "foreground": "#ffffff",
-		  "background": "#8800dd",
+		  "background": "#4a37b0",
 		  "template": " \uF520 {{ .FormattedMs }} ",
 		  "properties": {
 			"threshold": 500,
@@ -76,7 +79,7 @@
           "style": "powerline",
           "powerline_symbol": "\ue0b0",
           "foreground": "#ffffff",
-          "background": "#ff5f5f",
+          "background": "#ff3d3d",
           "template": " \uf023 "
         }
       ]
