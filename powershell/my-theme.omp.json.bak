@@ -1,0 +1,88 @@
+{
+  "$schema": "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json",
+  "version": 2,
+  "final_space": true,
+  "console_title_template": "{{if .Root}}[Admin] {{end}}{{ .HostName }} \u276f {{ .Folder }}",
+  "blocks": [
+    {
+      "type": "prompt",
+      "alignment": "left",
+      "segments": [
+        {
+          "type": "session",
+          "style": "diamond",
+          "foreground": "#ffffff",
+          "background": "#1e3999",
+          "leading_diamond": "\ue0b6",
+          "trailing_diamond": "\ue0b0",
+          "template": "{{ if .SSHSession }}\ueba9 {{ .HostName }}{{else}}\uf015{{ end }} "
+        },
+        {
+          "type": "path",
+          "style": "powerline",
+          "powerline_symbol": "\ue0b0",
+          "foreground": "#ffffff",
+          "background": "#6079bd",
+          "template": " \ue5ff {{ .Path }} ",
+          "properties": {
+            "folder_separator_icon": "\u005c",
+            "home_icon": "~",
+            "style": "mixed"
+          }
+        },
+        {
+          "type": "git",
+          "style": "powerline",
+          "powerline_symbol": "\ue0b0",
+          "foreground": "#193549",
+          "background": "#fff06a",
+          "background_templates": [
+            "{{ if or (.Working.Changed) (.Staging.Changed) }}#FF9248{{ end }}",
+            "{{ if and (gt .Ahead 0) (gt .Behind 0) }}#ff4500{{ end }}",
+            "{{ if gt .Ahead 0 }}#B388FF{{ end }}",
+            "{{ if gt .Behind 0 }}#B388FF{{ end }}"
+          ],
+          "template": " {{ .UpstreamIcon }}{{ .RepoName }} {{ .HEAD }}{{ .BranchStatus }}{{ if .Working.Changed }} \uf044 {{ .Working.String }}{{ end }}{{ if and (.Working.Changed) (.Staging.Changed) }} |{{ end }}{{ if .Staging.Changed }} \uf046 {{ .Staging.String }}{{ end }}{{ if gt .StashCount 0 }} \uf692 {{ .StashCount }}{{ end }} ",
+          "properties": {
+            "branch_max_length": 25,
+            "fetch_stash_count": true,
+            "fetch_status": true,
+            "fetch_upstream_icon": true
+          }
+        },
+        {
+          "type": "battery",
+          "style": "powerline",
+          "powerline_symbol": "\ue0B0",
+          "foreground": "#efefef",
+          "background": "#005e1b",
+		  "background_templates": [
+		    "{{ if lt .Percentage 20 }}#ff0000{{ end }}"
+		  ],
+          "template": "{{if eq \"Discharging\" .State.String}} {{ if not .Error }}\uf0e7 {{ .Percentage }}{{ end }}\uF295 {{ end }}"
+        },
+		{
+		  "type": "executiontime",
+		  "style": "powerline",
+		  "powerline_symbol": "\ue0b0",
+		  "foreground": "#ffffff",
+		  "background": "#4a37b0",
+		  "template": " \uF520 {{ .FormattedMs }} ",
+		  "properties": {
+			"threshold": 500,
+			"style": "austin",
+			"always_enabled": false
+		  }
+		},
+        {
+          "type": "root",
+          "style": "powerline",
+          "powerline_symbol": "\ue0b0",
+          "foreground": "#ffffff",
+          "background": "#ff3d3d",
+          "template": " \uf023 "
+        }
+      ]
+    }
+  ]
+}
