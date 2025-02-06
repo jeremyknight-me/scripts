@@ -1,0 +1,52 @@
+services:
+  ollama:
+    image: ollama/ollama:latest
+    container_name: ollama
+    restart: unless-stopped
+    pull_policy: always
+    volumes:
+      - models:/root/.ollama
+    # Uncomment below to expose Ollama API outside the container stack
+    # ports:
+    #   - 11434:11434
+    # Uncomment below for GPU support
+    # deploy:
+    #   resources:
+    #     reservations:
+    #       devices:
+    #         - driver: nvidia
+    #           count: 1
+    #           capabilities:
+    #             - gpu
+
+  searxng:
+    image: searxng/searxng:latest
+    container_name: searxng
+    ports:
+      - "9090:8080"
+    volumes:
+      - search:/etc/searxng
+    restart: unless-stopped
+
+  open-webui:
+    image: ghcr.io/open-webui/open-webui:main
+    container_name: open-webui
+    restart: unless-stopped
+    environment:
+      - OLLAMA_BASE_URL=http://ollama:11434
+      - ENABLE_RAG_WEB_SEARCH=true
+      - RAG_WEB_SEARCH_ENGINE=searxng
+      - RAG_WEB_SEARCH_RESULT_COUNT=3
+      - RAG_WEB_SEARCH_CONCURRENT_REQUESTS=10
+      - SEARXNG_QUERY_URL=http://searxng:9090/search?q=<query>
+    volumes:
+      - ui:/app/backend/data
+    ports:
+      - "3000:8080"
+    depends_on:
+      - ollama
+      
+volumes:
+  models:
+  search:
+  ui:

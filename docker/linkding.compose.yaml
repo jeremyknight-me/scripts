@@ -1,0 +1,19 @@
+services:
+  linkding:
+    container_name: linkding
+    image: sissbruecker/linkding:latest-plus
+    ports:
+      - "9090:9090"
+    volumes:
+      - data:/etc/linkding/data"
+    environment:
+      # Option to disable background tasks
+      - LD_DISABLE_BACKGROUND_TASKS=False
+      # Option to disable URL validation for bookmarks completely
+      - LD_DISABLE_URL_VALIDATION=False
+      # Enables support for authentication proxies such as Authelia
+      - LD_ENABLE_AUTH_PROXY=False
+    restart: unless-stopped
+
+volumes:
+  data:
