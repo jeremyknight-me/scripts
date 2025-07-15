@@ -15,4 +15,11 @@ function Prompt
 }
 
 #. C:\src\gh\jk\powershell\Ionic-Functions.ps1
+
+Set-Alias d docker
+Set-Alias dc docker compose
+Set-Alias dn dotnet
+Set-Alias g git
+Set-Alias k kubectl
+
 Clear-Host 
