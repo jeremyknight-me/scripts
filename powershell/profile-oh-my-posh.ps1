@@ -11,12 +11,37 @@ function Update-GitRepos {
     Get-ChildItem -Path $RootDirectory -Directory | ForEach-Object {
         $folderPath = $_.FullName
         $gitFolder = Join-Path $folderPath ".git"
-        if (Test-Path $gitFolder) {
-            Write-Host "Updating git repo in: $folderPath"
-            Set-Location $folderPath
-            git fetch
-            git pull
+        if (!(Test-Path $gitFolder)) {
+            Write-Host "No git repository found in: $folderPath" -ForegroundColor Yellow
+            return
         }
+
+        Write-Host "Updating git repo in: $folderPath" -ForegroundColor Cyan
+        Set-Location $folderPath
+
+        # Get list of branches
+        $branches = git branch --list | ForEach-Object { $_.Trim().TrimStart('*').Trim() }
+
+        $targetBranch = $null
+        if ($branches -contains "main") {
+            $targetBranch = "main"
+        } elseif ($branches -contains "master") {
+            $targetBranch = "master"
+        }
+
+        if ($null -eq $targetBranch) {
+            Write-Host "Neither 'main' nor 'master' branch found in: $folderPath" -ForegroundColor Yellow
+            return
+        }
+
+        $currentBranch = (git branch --show-current).Trim()
+        if ($currentBranch -ne $targetBranch) {
+            Write-Host "Switching to branch: $targetBranch"
+            git switch $targetBranch
+        }
+
+        git fetch
+        git pull
     }
 
     # Restore the original location
