@@ -1,3 +1,8 @@
+volumes:
+  models:
+  search:
+  ui:
+
 services:
   ollama:
     image: ollama/ollama:latest
@@ -7,18 +12,21 @@ services:
     volumes:
       - models:/root/.ollama
     # Uncomment below to expose Ollama API outside the container stack
-    # ports:
-    #   - 11434:11434
+    ports:
+      - 11434:11434
     # Uncomment below for GPU support
-    # deploy:
-    #   resources:
-    #     reservations:
-    #       devices:
-    #         - driver: nvidia
-    #           count: 1
-    #           capabilities:
-    #             - gpu
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities:
+                - gpu
 
+  # Optional: SearXNG for web search integration
+  # SearXNG changed the default formats in settings.yml and you'll have to add json back
+  # More info: https://docs.searxng.org/admin/settings/settings_search.html
   searxng:
     image: searxng/searxng:latest
     container_name: searxng
@@ -33,20 +41,16 @@ services:
     container_name: open-webui
     restart: unless-stopped
     environment:
-      - OLLAMA_BASE_URL=http://ollama:11434
-      - ENABLE_RAG_WEB_SEARCH=true
-      - RAG_WEB_SEARCH_ENGINE=searxng
-      - RAG_WEB_SEARCH_RESULT_COUNT=3
-      - RAG_WEB_SEARCH_CONCURRENT_REQUESTS=10
-      - SEARXNG_QUERY_URL=http://searxng:9090/search?q=<query>
+      - OLLAMA_API_BASE_URL=http://ollama:11434 
+      - ENABLE_WEB_SEARCH=true
+      - WEB_SEARCH_ENGINE=searxng
+      - WEB_SEARCH_RESULT_COUNT=3
+      - WEB_LOADER_CONCURRENT_REQUESTS=10
+      - SEARXNG_QUERY_URL=http://searxng:8080/search?q=<query>
     volumes:
       - ui:/app/backend/data
     ports:
       - "3000:8080"
     depends_on:
       - ollama
-      
-volumes:
-  models:
-  search:
-  ui:
+      - searxng
