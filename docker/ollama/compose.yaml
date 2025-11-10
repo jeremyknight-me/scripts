@@ -41,11 +41,10 @@ services:
     container_name: open-webui
     restart: unless-stopped
     environment:
-      - OLLAMA_API_BASE_URL=http://ollama:11434 
+      - OLLAMA_BASE_URL=http://ollama:11434 
+      - ENABLE_OPENAI_API=false
       - ENABLE_WEB_SEARCH=true
       - WEB_SEARCH_ENGINE=searxng
-      - WEB_SEARCH_RESULT_COUNT=3
-      - WEB_LOADER_CONCURRENT_REQUESTS=10
       - SEARXNG_QUERY_URL=http://searxng:8080/search?q=<query>
     volumes:
       - ui:/app/backend/data
