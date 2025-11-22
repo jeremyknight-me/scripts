@@ -1,0 +1,24 @@
+volumes:
+  data:
+  extensions:
+
+services:
+  freshrss:
+    image: freshrss/freshrss:latest
+    container_name: freshrss
+    restart: unless-stopped
+    logging:
+      options:
+        max-size: 10m
+    volumes:
+      # Recommended volume for FreshRSS persistent data such as configuration and SQLite databases
+      - data:/var/www/FreshRSS/data
+      # Optional volume for storing third-party extensions
+      - extensions:/var/www/FreshRSS/extensions
+    ports:
+      # If you want to open a port 8080 on the local machine:
+      - "8080:80"
+    environment:
+      # A timezone http://php.net/timezones (default is UTC)
+      TZ: America/Chicago
+      CRON_MIN: "1,31"
