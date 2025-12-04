@@ -6,3 +6,5 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
     ports:
       - 3111:3000
+    environment:
+      - WUD_WATCHER_LOCAL_CRON=0 6 * * *
