@@ -1,5 +1,21 @@
 ### Custom Functions --------------------------------------
 
+# function Prompt
+# {
+#     $isAdmin = [bool](([System.Security.Principal.WindowsIdentity]::GetCurrent()).groups -match "S-1-5-32-544")
+#     $title = ""
+#     if ($isAdmin)
+#     {
+#         $title = "PowerShell Admin"
+#     } else { 
+# 	    $title = "PowerShell"
+#     }
+
+#     $cwd = $executionContext.SessionState.Path.CurrentLocation
+#     $host.UI.RawUI.WindowTitle = $title + " [" + (Get-Item -Path $cwd | Select-Object -ExpandProperty Name) + "]";
+#     return "PS $($cwd)$('>' * ($nestedPromptLevel + 1)) "
+# }
+
 function Update-GitRepos {
     param(
         [string]$RootDirectory = (Get-Location)
@@ -53,10 +69,12 @@ function Update-GitRepos {
 # . ~\source\repos\gh\jk\scripts\powershell\Ionic-Functions.ps1
 oh-my-posh --init --shell pwsh --config "<PATH_TO_THEME_HERE>" | Invoke-Expression
 
+Set-Alias c code
 Set-Alias d docker
 Set-Alias dc docker-compose
 Set-Alias dn dotnet
 Set-Alias g git
 Set-Alias k kubectl
+Set-Alias oc opencode
 
 Clear-Host
