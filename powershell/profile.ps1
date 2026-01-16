@@ -1,20 +1,19 @@
 ### Custom Functions --------------------------------------
 
-# function Prompt
-# {
-#     $isAdmin = [bool](([System.Security.Principal.WindowsIdentity]::GetCurrent()).groups -match "S-1-5-32-544")
-#     $title = ""
-#     if ($isAdmin)
-#     {
-#         $title = "PowerShell Admin"
-#     } else { 
-# 	    $title = "PowerShell"
-#     }
+function Clean-DotNetProject {
+    param(
+        [string]$projectPath = (Get-Location)
+    )
 
-#     $cwd = $executionContext.SessionState.Path.CurrentLocation
-#     $host.UI.RawUI.WindowTitle = $title + " [" + (Get-Item -Path $cwd | Select-Object -ExpandProperty Name) + "]";
-#     return "PS $($cwd)$('>' * ($nestedPromptLevel + 1)) "
-# }
+    Get-ChildItem -Path $projectPath -Include bin,obj -Recurse | Remove-Item -Force -Recurse
+
+    # get rid of "hidden" folders
+    # Get-ChildItem -Include bin,obj,".vs",".vscode" -Recurse -Force | Remove-Item -Force -Recurse
+}
+
+function Refresh-Profile {
+    . $PROFILE
+}
 
 function Update-GitRepos {
     param(
@@ -68,6 +67,8 @@ function Update-GitRepos {
 
 # . ~\source\repos\gh\jk\scripts\powershell\Ionic-Functions.ps1
 oh-my-posh --init --shell pwsh --config "<PATH_TO_THEME_HERE>" | Invoke-Expression
+
+#Import-Module -Name Terminal-Icons
 
 Set-Alias c code
 Set-Alias d docker
