@@ -71,6 +71,7 @@ oh-my-posh --init --shell pwsh --config "<PATH_TO_THEME_HERE>" | Invoke-Expressi
 #Import-Module -Name Terminal-Icons
 
 Set-Alias c code
+Set-Alias co copilot
 Set-Alias d docker
 Set-Alias dc docker-compose
 Set-Alias dn dotnet
