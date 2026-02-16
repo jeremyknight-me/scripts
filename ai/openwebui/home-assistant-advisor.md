@@ -1,6 +1,6 @@
 # Home Assistant Advisor
 
-Base Model: gemma3
+Base Model: testing `gemma3` and `qwen3`
 
 ## System Prompt
 
