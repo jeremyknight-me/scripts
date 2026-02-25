@@ -1,5 +1,0 @@
-services:
-  cyberchef:
-    image: mpepping/cyberchef
-    ports:
-      - '8118:8000'
