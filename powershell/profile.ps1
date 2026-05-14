@@ -77,6 +77,7 @@ Set-Alias dc docker-compose
 Set-Alias dn dotnet
 Set-Alias g git
 Set-Alias k kubectl
+Set-Alias o ollama
 Set-Alias oc opencode
 
 Clear-Host
